@@ -134,15 +134,25 @@ section{padding:clamp(3.5rem,5vw,5rem) var(--sp-xl)}
 /* ASSESSMENTS */
 .assessments{background:var(--brown-mid);border-top:1px solid var(--brown-border);border-bottom:1px solid var(--brown-border)}
 .assess-header{display:flex;align-items:flex-end;justify-content:space-between;gap:var(--sp-l);flex-wrap:wrap;margin-bottom:clamp(1.75rem,3vw,2.5rem)}
-.cards-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-m)}
-.acard{background:var(--deep-brown);border:1px solid var(--brown-border);border-radius:20px;padding:2.2rem;position:relative;overflow:hidden;display:flex;flex-direction:column;transition:border-color .3s, transform .3s}
+.cards-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-m);align-items:start}
+.acard{background:var(--deep-brown);border:1px solid var(--brown-border);border-radius:20px;padding:2.2rem;position:relative;overflow:hidden;display:flex;flex-direction:column;min-width:0;transition:border-color .3s,transform .3s}
 .acard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold-light),transparent);opacity:0;transition:opacity .3s}
 .acard:hover::before{opacity:1}
 .acard:hover{border-color:var(--gold-border);transform:translateY(-2px)}
 .acard-num{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:.85rem}
 .acard-badge{display:inline-block;font-size:.58rem;font-weight:bold;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold-border);padding:4px 12px;background:var(--gold-glow);margin-bottom:.85rem}
 .acard-title{font-family:var(--serif);font-size:1.45rem;font-weight:bold;color:var(--white);margin-bottom:.75rem;line-height:1.2}
-.acard-desc{font-size:.94rem;color:var(--text-body);line-height:1.85;margin-bottom:var(--sp-l)}
+.acard-desc{font-size:.94rem;color:var(--text-body);line-height:1.85;margin-bottom:1.25rem}
+.assessment-details{margin:0;padding:0;border:0}
+.assessment-details summary{list-style:none}
+.assessment-details summary::-webkit-details-marker{display:none}
+.details-toggle{font-size:.72rem;font-weight:bold;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold-border);padding:.8rem 1rem;background:transparent;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;cursor:pointer;transition:background .2s,border-color .2s}
+.details-toggle::after{content:'+';font-size:1.1rem;line-height:.7;transition:transform .25s}
+.details-toggle:hover{background:var(--gold-glow);border-color:var(--gold)}
+.assessment-details[open] .details-toggle::after{transform:rotate(45deg)}
+.assessment-content{display:none;padding-top:var(--sp-l)}
+.assessment-details[open] .assessment-content{display:block}
+@media(hover:hover){.acard:hover .assessment-content{display:block}.acard:hover .assessment-details{padding-bottom:0}}
 .domains{display:flex;flex-direction:column;gap:10px;margin-bottom:var(--sp-l);padding-bottom:var(--sp-l);border-bottom:1px solid var(--brown-border);flex:1}
 .domain-row{display:flex;align-items:flex-start;gap:12px}
 .dn{font-family:var(--serif);font-size:.65rem;font-weight:bold;color:var(--gold);min-width:20px;padding-top:2px;opacity:.75;flex-shrink:0}
@@ -369,20 +379,19 @@ footer{background:var(--brown-mid);border-top:1px solid var(--brown-border);padd
     <div class="assess-header rv">
       <div>
         <div class="section-kicker">Assessments</div>
-        <br>
-          <div class="cards-grid">
+      </div>
+    </div>
+    <div class="cards-grid">
 
       <!-- Personal -->
       <div class="acard rv d1">
         <div class="acard-num">Assessment 01</div>
         <h3 class="acard-title">Personal Assessment</h3>
-        <p class="acard-desc">The GROW360 Core Readiness & Personal-Professional Assessment Tool is a comprehensive
-framework designed to evaluate an individual's readiness across key dimensions that influence personal
-effectiveness, well-being, and professional success.
-This assessment takes a holistic approach by examining not only technical and academic preparedness,
-but also emotional resilience, motivation, cognitive potential, and future-oriented skills. It is aligned with
-global benchmarks and UAE national priorities, including future readiness, employability, and digital
-transformation.</p>
+        <p class="acard-desc">The GROW360 Core Readiness &amp; Personal-Professional Assessment Tool evaluates an individual's readiness across the dimensions that influence personal effectiveness, well-being, and professional success.</p>
+        <details class="assessment-details">
+          <summary class="details-toggle">View full assessment</summary>
+          <div class="assessment-content">
+        <p class="acard-desc">It examines technical and academic preparedness alongside emotional resilience, motivation, cognitive potential, and future-oriented skills. It is aligned with global benchmarks and UAE priorities for future readiness, employability, and digital transformation.</p>
         <ul class="domains" aria-label="Personal assessment domains">
           <li class="domain-row"><span class="dn">01</span><div><div class="dt">Educational Experience &amp; Market Readiness</div><div class="dd">Alignment between your education and real-world career demands</div></div></li>
           <li class="domain-row"><span class="dn">02</span><div><div class="dt">Psychological &amp; Emotional Well-Being</div><div class="dd">Emotional resilience, stress management, and self-awareness</div></div></li>
@@ -393,18 +402,19 @@ transformation.</p>
           <li class="domain-row"><span class="dn">07</span><div><div class="dt">Future Skills &amp; AI Readiness</div><div class="dd">Digital literacy, AI awareness, and future-oriented thinking</div></div></li>
         </ul>
         <a href="https://forms.gle/63cHT8mgBNj4a6A69" target="_blank" rel="noopener noreferrer" class="btn-fill assess-btn" data-assessment="personal">Begin Personal Assessment →</a>
+          </div>
+        </details>
       </div>
 
       <!-- Corporate -->
       <div class="acard rv d2">
         <div class="acard-num">Assessment 02</div>
         <h3 class="acard-title">Corporate Assessment</h3>
-        <p class="acard-desc">The GROW360 Corporate Assessment is designed for organisations seeking to measure and develop
-their workforce capabilities across critical dimensions of workplace effectiveness, leadership, innovation,
-and employee well-being.
-This tool provides organisations with deep, actionable insights into employee engagement, psychological
-safety, professional development, and organisational commitment. Each participant receives a
-personalised report with domain-level scores, tailored feedback, and a clear development roadmap.</p>
+        <p class="acard-desc">The GROW360 Corporate Assessment measures and develops workforce capability across workplace effectiveness, leadership, innovation, and employee well-being.</p>
+        <details class="assessment-details">
+          <summary class="details-toggle">View full assessment</summary>
+          <div class="assessment-content">
+        <p class="acard-desc">It provides actionable insight into employee engagement, psychological safety, professional development, and organisational commitment, with domain-level scores, tailored feedback, and a clear development roadmap.</p>
         <ul class="domains" aria-label="Corporate assessment domains">
           <li class="domain-row"><span class="dn">01</span><div><div class="dt">Job Satisfaction &amp; Work Environment</div><div class="dd">Role clarity, workload balance, autonomy, and recognition</div></div></li>
           <li class="domain-row"><span class="dn">02</span><div><div class="dt">Psychological Safety &amp; Emotional Well-Being</div><div class="dd">Trust, mental health support, respect, and inclusion</div></div></li>
@@ -418,6 +428,68 @@ personalised report with domain-level scores, tailored feedback, and a clear dev
           <li class="domain-row"><span class="dn">10</span><div><div class="dt">Corporate Awareness &amp; Sustainability</div><div class="dd">ESG awareness, ethical practices, and social responsibility</div></div></li>
         </ul>
         <a href="https://forms.gle/XWijNYpvpV1Gw28X8" target="_blank" rel="noopener noreferrer" class="btn-rim assess-btn" data-assessment="corporate">Begin Corporate Assessment →</a>
+          </div>
+        </details>
+      </div>
+
+      <div class="acard rv d3">
+        <div class="acard-num">Assessment 03</div>
+        <h3 class="acard-title">AIR360 &mdash; Individual Assessment</h3>
+        <p class="acard-desc">The AIR360 Individual AI Readiness Assessment measures an employee's readiness to use, collaborate with, and responsibly govern artificial intelligence in the workplace.</p>
+        <details class="assessment-details">
+          <summary class="details-toggle">View full assessment</summary>
+          <div class="assessment-content">
+            <p class="acard-desc">It examines technical AI literacy, governance judgment, ethical accountability, and adaptability to continuous AI-driven change. It is aligned with global AI governance benchmarks, the UAE AI Act 2026, and the country's AI-first workforce strategy.</p>
+            <ul class="domains" aria-label="AIR360 individual assessment domains">
+              <li class="domain-row"><span class="dn">01</span><div><div class="dt">AI Literacy</div><div class="dd">Understanding AI system types, capabilities, and limitations</div></div></li>
+              <li class="domain-row"><span class="dn">02</span><div><div class="dt">AI Productivity &amp; Collaboration</div><div class="dd">Effective and responsible use of AI tools to enhance work output</div></div></li>
+              <li class="domain-row"><span class="dn">03</span><div><div class="dt">Governance Judgment &amp; Oversight</div><div class="dd">Risk awareness, escalation, and sound decision-making around AI use</div></div></li>
+              <li class="domain-row"><span class="dn">04</span><div><div class="dt">Ethical Accountability</div><div class="dd">Fairness, transparency, and responsible ownership of AI-assisted outcomes</div></div></li>
+              <li class="domain-row"><span class="dn">05</span><div><div class="dt">Change Leadership &amp; AI Adoption</div><div class="dd">Championing adoption and guiding others through AI-driven change</div></div></li>
+              <li class="domain-row"><span class="dn">06</span><div><div class="dt">Adaptive Learning Rate</div><div class="dd">Speed and consistency of building new AI skills over time</div></div></li>
+            </ul>
+            <a href="https://forms.gle/nBUh6D38TJ1aBiUX9" target="_blank" rel="noopener noreferrer" class="btn-fill assess-btn" data-assessment="air360-individual">Begin Personal Assessment &rarr;</a>
+          </div>
+        </details>
+      </div>
+
+      <div class="acard rv d4">
+        <div class="acard-num">Assessment 04</div>
+        <h3 class="acard-title">AIR360 &mdash; Organizational Assessment</h3>
+        <p class="acard-desc">The AIR360 Organizational AI Readiness Diagnostic evaluates an organization's capacity to govern, scale, and sustain the responsible use of artificial intelligence.</p>
+        <details class="assessment-details">
+          <summary class="details-toggle">View full assessment</summary>
+          <div class="assessment-content">
+            <p class="acard-desc">It assesses policy and governance structures, strategic alignment, learning culture, and risk and infrastructure readiness. It is aligned with global AI governance benchmarks, the UAE AI Act 2026, and the country's digital transformation agenda.</p>
+            <ul class="domains" aria-label="AIR360 organizational assessment domains">
+              <li class="domain-row"><span class="dn">01</span><div><div class="dt">AI Governance Maturity</div><div class="dd">Formal policies, accountability structures, and oversight of AI use</div></div></li>
+              <li class="domain-row"><span class="dn">02</span><div><div class="dt">Strategic AI Alignment</div><div class="dd">Integration of AI initiatives with business strategy and objectives</div></div></li>
+              <li class="domain-row"><span class="dn">03</span><div><div class="dt">Learning Ecosystem &amp; Culture</div><div class="dd">Organizational capability-building, training, and knowledge-sharing on AI</div></div></li>
+              <li class="domain-row"><span class="dn">04</span><div><div class="dt">Risk, Compliance &amp; Infrastructure</div><div class="dd">Technical, regulatory, and risk-management readiness for AI at scale</div></div></li>
+            </ul>
+            <a href="https://forms.gle/me6TgX7MYNFWv3N7A " target="_blank" rel="noopener noreferrer" class="btn-fill assess-btn" data-assessment="air360-organizational">Begin Personal Assessment &rarr;</a>
+          </div>
+        </details>
+      </div>
+
+      <div class="acard rv d4">
+        <div class="acard-num">Assessment 05</div>
+        <h3 class="acard-title">Enhanced Internal Control Assessment</h3>
+        <p class="acard-desc">The Enhanced Internal Control Assessment Tool evaluates an organization's internal control environment across the five COSO Internal Control &ndash; Integrated Framework (2013) components.</p>
+        <details class="assessment-details">
+          <summary class="details-toggle">View full assessment</summary>
+          <div class="assessment-content">
+            <p class="acard-desc">It examines governance and culture, risk identification, control operating effectiveness, information systems, and ongoing monitoring. It is aligned with global benchmarks and UAE regulatory requirements, including Federal Law 11/1992, Law 7/2015, DFSA Standards, and ISO 31000.</p>
+            <ul class="domains" aria-label="Enhanced internal control assessment domains">
+              <li class="domain-row"><span class="dn">01</span><div><div class="dt">Control Environment &amp; Governance</div><div class="dd">Ethics, board oversight, structure, and competence of control personnel</div></div></li>
+              <li class="domain-row"><span class="dn">02</span><div><div class="dt">Risk Assessment &amp; Identification</div><div class="dd">Risk identification, fraud risk, compliance risk, and change management</div></div></li>
+              <li class="domain-row"><span class="dn">03</span><div><div class="dt">Control Activities &amp; Operating Effectiveness</div><div class="dd">Authorization, segregation of duties, and physical and access controls</div></div></li>
+              <li class="domain-row"><span class="dn">04</span><div><div class="dt">Information &amp; Communication Systems</div><div class="dd">Quality, flow, and use of information supporting internal control</div></div></li>
+              <li class="domain-row"><span class="dn">05</span><div><div class="dt">Monitoring Activities &amp; Evaluation</div><div class="dd">Ongoing and separate evaluations of control effectiveness over time</div></div></li>
+            </ul>
+            <a href="https://forms.gle/H9VSECwfuu4GhwwP7" target="_blank" rel="noopener noreferrer" class="btn-fill assess-btn" data-assessment="enhanced-internal-control">Begin Personal Assessment &rarr;</a>
+          </div>
+        </details>
       </div>
 
     </div>
